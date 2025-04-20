@@ -1,6 +1,10 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjkWkuC43qRrYrYimohrWSF5r-ZR2-EhQ",
@@ -15,51 +19,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.openForm = (ranga) => {
-  document.getElementById("formPopup").classList.add("active");
-  document.getElementById("formRanga").textContent = ranga;
+window.openForm = function (ranga) {
+  document.getElementById("formRanga").innerText = ranga;
+  document.getElementById("formPopup").style.display = "flex";
 };
 
-window.closeForm = () => {
-  document.getElementById("formPopup").classList.remove("active");
+window.closeForm = function () {
+  document.getElementById("formPopup").style.display = "none";
 };
 
-window.handleZamow = async () => {
-  const nick = document.getElementById("nick").value;
-  const email = document.getElementById("email").value;
-  const metoda = document.getElementById("metoda").value;
-  const ranga = document.getElementById("formRanga").textContent;
-
-  if (!nick || !email || !metoda) return alert("Wypełnij wszystkie pola!");
-
-  await addDoc(collection(db, "zamowienia"), {
-    nick, email, metoda, ranga, data: new Date().toISOString()
-  });
-  alert("Zamówienie zapisane!");
+window.handleZamow = function () {
+  alert("Dziękujemy za zamówienie! (płatność symulowana)");
   closeForm();
 };
 
-window.handleOpinie = async () => {
-  const nick = document.getElementById("opNick").value;
-  const tekst = document.getElementById("opTekst").value;
-  if (!nick || !tekst) return alert("Wypełnij oba pola!");
-  await addDoc(collection(db, "opinie"), { nick, tekst, data: new Date().toISOString() });
+window.handleOpinie = async function () {
+  const nick = document.getElementById("opNick").value.trim();
+  const tekst = document.getElementById("opTekst").value.trim();
+  if (!nick || !tekst) return alert("Wypełnij wszystkie pola!");
+
+  await addDoc(collection(db, "opinie"), {
+    nick,
+    tekst,
+    data: new Date()
+  });
+
   document.getElementById("opNick").value = "";
   document.getElementById("opTekst").value = "";
-  loadOpinie();
 };
 
-async function loadOpinie() {
-  const list = document.getElementById("opinieList");
-  list.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "opinie"));
-  querySnapshot.forEach((doc) => {
+const opinieList = document.getElementById("opinieList");
+onSnapshot(collection(db, "opinie"), (snapshot) => {
+  opinieList.innerHTML = "";
+  snapshot.forEach((doc) => {
     const data = doc.data();
     const div = document.createElement("div");
     div.className = "opinia";
-    div.innerHTML = `<strong>${data.nick}</strong><br>${data.tekst}`;
-    list.appendChild(div);
+    div.innerHTML = `<strong>${data.nick}</strong><p>${data.tekst}</p>`;
+    opinieList.appendChild(div);
   });
-}
-
-loadOpinie();
+});
