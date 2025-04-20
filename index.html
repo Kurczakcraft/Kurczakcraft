@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <title>KurczakCraft</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="main.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <script type="module" src="main.js" defer></script>
 </head>
 <body>
   <header>
@@ -39,6 +39,7 @@
     </div>
   </section>
 
+  <!-- Ranga popup -->
   <section class="popup-form" id="formPopup">
     <div class="form-content">
       <span class="close" onclick="closeForm()">&times;</span>
@@ -55,17 +56,22 @@
     </div>
   </section>
 
-  <section class="opinia-section">
-    <h2>Dodaj opinię</h2>
-    <input id="opNick" placeholder="Twój nick">
-    <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
-    <button onclick="handleOpinie()">Dodaj opinię</button>
-  </section>
-
-  <section class="opinie">
+  <!-- Nowoczesne popupy opinii -->
+  <section class="opinie-section">
     <h2>Opinie graczy</h2>
+    <button onclick="toggleOpiniePopup()">Dodaj opinię</button>
     <div id="opinieList"></div>
   </section>
+
+  <div class="popup-form" id="opiniePopup">
+    <div class="form-content">
+      <span class="close" onclick="toggleOpiniePopup()">&times;</span>
+      <h2>Dodaj opinię</h2>
+      <input id="opNick" placeholder="Twój nick">
+      <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
+      <button onclick="handleOpinie()">Wyślij opinię</button>
+    </div>
+  </div>
 
   <footer>
     KurczakCraft © 2025 – Wszelkie prawa zastrzeżone.
