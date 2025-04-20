@@ -1,1 +1,74 @@
-<!-- index.html zostanie uzupełniony -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>KurczakCraft</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="main.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1><span class="orange">Kurczak</span><span class="white">Craft</span></h1>
+  </header>
+
+  <section class="rangi-section">
+    <h2>Wybierz rangę</h2>
+    <div class="rangi-box">
+      <div class="ranga" onclick="openForm('VIP')">
+        <img src="img/vip.png" alt="VIP">
+        <h3>VIP</h3>
+        <p>Dostęp do /kit vip, kolorowy nick, więcej slotów</p>
+        <span class="cena">9.99 zł</span>
+        <button>Kup teraz</button>
+      </div>
+      <div class="ranga" onclick="openForm('SVIP')">
+        <img src="img/svip.png" alt="SVIP">
+        <h3>SVIP</h3>
+        <p>Wszystko z VIP + latanie, /heal, czat premium</p>
+        <span class="cena">19.99 zł</span>
+        <button>Kup teraz</button>
+      </div>
+      <div class="ranga" onclick="openForm('GVIP')">
+        <img src="img/gvip.png" alt="GVIP">
+        <h3>GVIP</h3>
+        <p>Wszystko z SVIP + zmiana pogody, /god, więcej kitów</p>
+        <span class="cena">29.99 zł</span>
+        <button>Kup teraz</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="popup-form" id="formPopup">
+    <div class="form-content">
+      <span class="close" onclick="closeForm()">&times;</span>
+      <h2>Zamów <span id="formRanga"></span></h2>
+      <input id="nick" placeholder="Nick Minecraft">
+      <input id="email" type="email" placeholder="Email">
+      <select id="metoda">
+        <option disabled selected>Wybierz metodę płatności</option>
+        <option>BLIK</option>
+        <option>PayPal</option>
+        <option>Stripe</option>
+      </select>
+      <button onclick="handleZamow()">Kup teraz</button>
+    </div>
+  </section>
+
+  <section class="opinia-section">
+    <h2>Dodaj opinię</h2>
+    <input id="opNick" placeholder="Twój nick">
+    <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
+    <button onclick="handleOpinie()">Dodaj opinię</button>
+  </section>
+
+  <section class="opinie">
+    <h2>Opinie graczy</h2>
+    <div id="opinieList"></div>
+  </section>
+
+  <footer>
+    KurczakCraft © 2025 – Wszelkie prawa zastrzeżone.
+  </footer>
+</body>
+</html>
