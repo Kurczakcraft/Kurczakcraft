@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>KurczakCraft</title>
-  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-  <script type="module" src="main.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
@@ -15,21 +14,21 @@
   <section class="rangi-section">
     <h2>Wybierz rangę</h2>
     <div class="rangi-box">
-      <div class="ranga" onclick="openForm('VIP')">
+      <div class="ranga" id="vip" onclick="openForm('VIP')">
         <img src="img/vip.png" alt="VIP">
         <h3>VIP</h3>
         <p>Dostęp do /kit vip, kolorowy nick, więcej slotów</p>
         <span class="cena">9.99 zł</span>
         <button>Kup teraz</button>
       </div>
-      <div class="ranga" onclick="openForm('SVIP')">
+      <div class="ranga" id="svip" onclick="openForm('SVIP')">
         <img src="img/svip.png" alt="SVIP">
         <h3>SVIP</h3>
         <p>Wszystko z VIP + latanie, /heal, czat premium</p>
         <span class="cena">19.99 zł</span>
         <button>Kup teraz</button>
       </div>
-      <div class="ranga" onclick="openForm('GVIP')">
+      <div class="ranga" id="gvip" onclick="openForm('GVIP')">
         <img src="img/gvip.png" alt="GVIP">
         <h3>GVIP</h3>
         <p>Wszystko z SVIP + zmiana pogody, /god, więcej kitów</p>
@@ -39,7 +38,6 @@
     </div>
   </section>
 
-  <!-- Ranga popup -->
   <section class="popup-form" id="formPopup">
     <div class="form-content">
       <span class="close" onclick="closeForm()">&times;</span>
@@ -56,25 +54,22 @@
     </div>
   </section>
 
-  <!-- Nowoczesne popupy opinii -->
-  <section class="opinie-section">
-    <h2>Opinie graczy</h2>
-    <button onclick="toggleOpiniePopup()">Dodaj opinię</button>
-    <div id="opinieList"></div>
+  <section class="opinia-section">
+    <h2>Dodaj opinię</h2>
+    <input id="opNick" placeholder="Twój nick">
+    <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
+    <button onclick="handleOpinie()">Dodaj opinię</button>
   </section>
 
-  <div class="popup-form" id="opiniePopup">
-    <div class="form-content">
-      <span class="close" onclick="toggleOpiniePopup()">&times;</span>
-      <h2>Dodaj opinię</h2>
-      <input id="opNick" placeholder="Twój nick">
-      <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
-      <button onclick="handleOpinie()">Wyślij opinię</button>
-    </div>
-  </div>
+  <section class="opinie">
+    <h2>Opinie graczy</h2>
+    <div id="opinieList"></div>
+  </section>
 
   <footer>
     KurczakCraft © 2025 – Wszelkie prawa zastrzeżone.
   </footer>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>

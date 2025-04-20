@@ -3,175 +3,52 @@ body {
   font-family: 'Poppins', sans-serif;
   background: url('https://i.imgur.com/ATywzml.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: white;
+  color: #fff;
 }
-
 header {
   text-align: center;
-  padding: 40px;
+  padding: 40px 0;
   background: rgba(0,0,0,0.7);
 }
-
-.orange { color: orange; }
-.white { color: white; }
+h1 .orange { color: orange; }
+h1 .white { color: white; }
 
 .rangi-box {
   display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 20px;
+  justify-content: space-around;
+  margin: 30px;
 }
-
 .ranga {
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 15px;
+  background: rgba(0,0,0,0.6);
   padding: 20px;
+  border-radius: 10px;
+  width: 30%;
   text-align: center;
-  width: 200px;
-  transition: 0.3s;
   cursor: pointer;
+  transition: 0.3s;
 }
-
 .ranga:hover {
   transform: scale(1.05);
-  background: rgba(255, 165, 0, 0.2);
 }
-
-.ranga img {
-  width: 100px;
-  height: auto;
-}
-
-.cena {
-  display: block;
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  background: orange;
-  color: black;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .popup-form {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
 }
-
-.form-content {
-  background: #222;
-  padding: 30px;
-  border-radius: 15px;
-  width: 300px;
-  color: white;
-}
-
-.close {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-input, select, textarea {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-.opinia-section, .opinie {
-  padding: 30px;
-  background: rgba(0,0,0,0.6);
-  margin: 30px;
-  border-radius: 15px;
-}
-
-.opinia {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 10px 0;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-/* Reszta jak wcześniej... */
-
-.opinie-section {
-  padding: 30px;
-  background: rgba(0,0,0,0.6);
-  margin: 30px;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.opinia {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 15px auto;
+.popup-form .form-content {
+  background: #fff;
+  color: #000;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 10px;
+  max-width: 400px;
   width: 90%;
-  max-width: 500px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  text-align: left;
 }
-
-.opinia-avatar {
-  width: 50px;
-  height: 50px;
-  background: orange;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: black;
-  font-size: 1.2em;
-}
-
-.opinia-text {
-  flex: 1;
-}
-
-.popup-form {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.popup-form.active {
-  display: flex;
-}
-
-.form-content {
-  background: #222;
+footer {
+  text-align: center;
   padding: 30px;
-  border-radius: 15px;
-  width: 300px;
-  color: white;
-  position: relative;
+  color: #ccc;
 }
-
-.close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
