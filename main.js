@@ -1,5 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+// Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjkWkuC43qRrYrYimohrWSF5r-ZR2-EhQ",
@@ -14,66 +15,82 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Opinie
-const opinieList = document.getElementById("opinieList");
-
-async function loadOpinie() {
-  const querySnapshot = await getDocs(collection(db, "opinie"));
-  opinieList.innerHTML = "";
-
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    const div = document.createElement("div");
-    div.className = "opinie-box";
-    div.innerHTML = `<div class="nick">${data.nick}</div><div>${data.tekst}</div>`;
-    opinieList.appendChild(div);
-  });
-}
-
-window.handleOpinie = async function () {
-  const nick = document.getElementById("opNick").value.trim();
-  const tekst = document.getElementById("opTekst").value.trim();
-
-  if (!nick || !tekst) return alert("Uzupełnij dane!");
-
-  await addDoc(collection(db, "opinie"), { nick, tekst });
-  document.getElementById("opNick").value = "";
-  document.getElementById("opTekst").value = "";
-  loadOpinie();
-};
-
-window.openForm = function (ranga) {
-  document.getElementById("formPopup").style.display = "flex";
-  document.getElementById("formRanga").innerText = ranga;
-};
-
-window.closeForm = function () {
-  document.getElementById("formPopup").style.display = "none";
-};
-
-window.handleZamow = function () {
-  alert("Płatność zainicjowana – system płatności będzie zintegrowany.");
-};
-
-loadOpinie();
-
-// Funkcja dodająca zamówienie:
-export async function handleZamow() {
+// obsługa zamówień
+window.handleZamow = async () => {
   const nick = document.getElementById("nick").value;
   const email = document.getElementById("email").value;
   const metoda = document.getElementById("metoda").value;
-  const ranga = document.getElementById("formRanga").innerText;
+  const ranga = document.getElementById("formRanga").textContent;
 
-  if (nick && email && metoda && ranga) {
+  if (!nick || !email || !metoda || !ranga) {
+    alert("Uzupełnij wszystkie pola!");
+    return;
+  }
+
+  try {
     await addDoc(collection(db, "zamowienia"), {
       nick,
       email,
       metoda,
       ranga,
-      data: new Date()
+      timestamp: new Date()
     });
-    alert("Zamówienie zostało zapisane!");
-  } else {
-    alert("Uzupełnij wszystkie pola!");
+
+    alert("Płatność zainicjowana – system płatności będzie zintegrowany.");
+    closeForm();
+  } catch (e) {
+    console.error("Błąd przy zapisie zamówienia:", e);
+    alert("Wystąpił błąd podczas składania zamówienia.");
   }
+};
+
+// popup
+window.openForm = (ranga) => {
+  document.getElementById("formPopup").style.display = "flex";
+  document.getElementById("formRanga").textContent = ranga;
+};
+
+window.closeForm = () => {
+  document.getElementById("formPopup").style.display = "none";
+};
+
+// opinie
+window.handleOpinie = async () => {
+  const nick = document.getElementById("opNick").value;
+  const tekst = document.getElementById("opTekst").value;
+
+  if (!nick || !tekst) {
+    alert("Uzupełnij wszystkie pola!");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "opinie"), {
+      nick,
+      tekst,
+      timestamp: new Date()
+    });
+
+    document.getElementById("opNick").value = "";
+    document.getElementById("opTekst").value = "";
+    loadOpinie();
+  } catch (e) {
+    console.error("Błąd przy dodawaniu opinii:", e);
+  }
+};
+
+async function loadOpinie() {
+  const opinieList = document.getElementById("opinieList");
+  opinieList.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "opinie"));
+  querySnapshot.forEach((doc) => {
+    const opinia = doc.data();
+    const opiniaDiv = document.createElement("div");
+    opiniaDiv.className = "opinia";
+    opiniaDiv.innerHTML = `<strong>${opinia.nick}</strong><p>${opinia.tekst}</p>`;
+    opinieList.appendChild(opiniaDiv);
+  });
 }
+
+loadOpinie();
