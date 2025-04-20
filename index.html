@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>KurczakCraft</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="main.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <header>
     <h1><span class="orange">Kurczak</span><span class="white">Craft</span></h1>
   </header>
@@ -15,19 +17,16 @@
     <h2>Wybierz rangę</h2>
     <div class="rangi-box">
       <div class="ranga vip" onclick="openForm('VIP')">
-        <img src="img/vip.png" alt="VIP" />
         <h3>VIP</h3>
-        <p>/kit vip, /repair all, dalsze RTP, klucze, inne przywileje</p>
+        <p>/kit vip, kolorowy nick, repair all, inne przywileje</p>
         <span class="cena">9.99 zł</span>
       </div>
       <div class="ranga svip" onclick="openForm('SVIP')">
-        <img src="img/svip.png" alt="SVIP" />
         <h3>SVIP</h3>
         <p>Wszystko z VIP + /kit svip, nick kolorowy na chacie, repair all , inne przywileje</p>
         <span class="cena">19.99 zł</span>
       </div>
       <div class="ranga gvip" onclick="openForm('GVIP')">
-        <img src="img/gvip.png" alt="GVIP" />
         <h3>GVIP</h3>
         <p>Wszystko z SVIP + /kit gvip, nick kolorowy na chacie, repair all , inne przywileje</p>
         <span class="cena">29.99 zł</span>
@@ -67,6 +66,5 @@
     KurczakCraft © 2025 – Wszelkie prawa zastrzeżone.
   </footer>
 
-  <script type="module" src="main.js"></script>
 </body>
 </html>
