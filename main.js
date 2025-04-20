@@ -1,10 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjkWkuC43qRrYrYimohrWSF5r-ZR2-EhQ",
@@ -19,43 +14,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.openForm = function (ranga) {
-  document.getElementById("formRanga").innerText = ranga;
-  document.getElementById("formPopup").style.display = "flex";
-};
+const opinieList = document.getElementById("opinieList");
 
-window.closeForm = function () {
-  document.getElementById("formPopup").style.display = "none";
-};
+async function loadOpinie() {
+  const querySnapshot = await getDocs(collection(db, "opinie"));
+  opinieList.innerHTML = "";
 
-window.handleZamow = function () {
-  alert("Dziękujemy za zamówienie! (płatność symulowana)");
-  closeForm();
-};
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const box = document.createElement("div");
+    box.className = "opinie-box";
+    box.innerHTML = `
+      <div class="nick">${data.nick}</div>
+      <div class="tekst">${data.tekst}</div>
+    `;
+    opinieList.appendChild(box);
+  });
+}
 
 window.handleOpinie = async function () {
   const nick = document.getElementById("opNick").value.trim();
   const tekst = document.getElementById("opTekst").value.trim();
-  if (!nick || !tekst) return alert("Wypełnij wszystkie pola!");
 
-  await addDoc(collection(db, "opinie"), {
-    nick,
-    tekst,
-    data: new Date()
-  });
+  if (!nick || !tekst) return alert("Wpisz nick i opinię!");
+
+  await addDoc(collection(db, "opinie"), { nick, tekst });
 
   document.getElementById("opNick").value = "";
   document.getElementById("opTekst").value = "";
+  loadOpinie();
 };
 
-const opinieList = document.getElementById("opinieList");
-onSnapshot(collection(db, "opinie"), (snapshot) => {
-  opinieList.innerHTML = "";
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    const div = document.createElement("div");
-    div.className = "opinia";
-    div.innerHTML = `<strong>${data.nick}</strong><p>${data.tekst}</p>`;
-    opinieList.appendChild(div);
-  });
-});
+loadOpinie();
