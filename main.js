@@ -56,3 +56,24 @@ window.handleZamow = function () {
 };
 
 loadOpinie();
+
+// Funkcja dodająca zamówienie:
+export async function handleZamow() {
+  const nick = document.getElementById("nick").value;
+  const email = document.getElementById("email").value;
+  const metoda = document.getElementById("metoda").value;
+  const ranga = document.getElementById("formRanga").innerText;
+
+  if (nick && email && metoda && ranga) {
+    await addDoc(collection(db, "zamowienia"), {
+      nick,
+      email,
+      metoda,
+      ranga,
+      data: new Date()
+    });
+    alert("Zamówienie zostało zapisane!");
+  } else {
+    alert("Uzupełnij wszystkie pola!");
+  }
+}
