@@ -114,3 +114,28 @@ header {
   margin-top: 10px;
   border-radius: 10px;
 }
+
+.opinie-box {
+  background: rgba(0,0,0,0.7);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255,140,0,0.5);
+  transition: transform 0.2s ease;
+}
+
+.opinie-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(255,140,0,0.8);
+}
+
+.opinie-box .nick {
+  font-weight: bold;
+  color: orange;
+}
+
+.opinie-box .tekst {
+  margin-top: 8px;
+  font-size: 1.1em;
+}
