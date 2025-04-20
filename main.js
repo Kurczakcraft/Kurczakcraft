@@ -14,6 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Opinie
 const opinieList = document.getElementById("opinieList");
 
 async function loadOpinie() {
@@ -22,13 +23,10 @@ async function loadOpinie() {
 
   querySnapshot.forEach((doc) => {
     const data = doc.data();
-    const box = document.createElement("div");
-    box.className = "opinie-box";
-    box.innerHTML = `
-      <div class="nick">${data.nick}</div>
-      <div class="tekst">${data.tekst}</div>
-    `;
-    opinieList.appendChild(box);
+    const div = document.createElement("div");
+    div.className = "opinie-box";
+    div.innerHTML = `<div class="nick">${data.nick}</div><div>${data.tekst}</div>`;
+    opinieList.appendChild(div);
   });
 }
 
@@ -36,13 +34,25 @@ window.handleOpinie = async function () {
   const nick = document.getElementById("opNick").value.trim();
   const tekst = document.getElementById("opTekst").value.trim();
 
-  if (!nick || !tekst) return alert("Wpisz nick i opinię!");
+  if (!nick || !tekst) return alert("Uzupełnij dane!");
 
   await addDoc(collection(db, "opinie"), { nick, tekst });
-
   document.getElementById("opNick").value = "";
   document.getElementById("opTekst").value = "";
   loadOpinie();
+};
+
+window.openForm = function (ranga) {
+  document.getElementById("formPopup").style.display = "flex";
+  document.getElementById("formRanga").innerText = ranga;
+};
+
+window.closeForm = function () {
+  document.getElementById("formPopup").style.display = "none";
+};
+
+window.handleZamow = function () {
+  alert("Płatność zainicjowana – system płatności będzie zintegrowany.");
 };
 
 loadOpinie();
