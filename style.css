@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -6,78 +5,112 @@ body {
   background-size: cover;
   color: #fff;
 }
+
 header {
   text-align: center;
   padding: 40px 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
 }
+
 .orange { color: orange; }
 .white { color: white; }
+
 .rangi-box {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
+  flex-wrap: wrap;
 }
+
 .ranga {
-  background: rgba(0,0,0,0.7);
-  padding: 20px;
-  border-radius: 10px;
   width: 250px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.7);
   text-align: center;
-  box-shadow: 0 0 10px orange;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
+.ranga:hover {
+  transform: scale(1.05);
+}
+
+.ranga.vip { border-left: 5px solid #ffd700; } /* Ciemnożółty */
+.ranga.svip { border-left: 5px solid #ff6600; } /* Ciemnopomarańczowy */
+.ranga.gvip { border-left: 5px solid #00ccff; } /* Jasnoniebieski */
+
 .ranga img {
-  width: 100px;
+  max-width: 100%;
+  border-radius: 10px;
 }
 .cena {
-  font-size: 18px;
-  color: gold;
   font-weight: bold;
-}
-button {
-  background: orange;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
   margin-top: 10px;
-  cursor: pointer;
-  border-radius: 8px;
-  font-weight: bold;
+  display: block;
 }
+
 .popup-form {
   display: none;
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
-.popup-form.active {
-  display: flex;
-}
-.form-content {
+
+.popup-form .form-content {
   background: #222;
   padding: 30px;
-  border-radius: 10px;
-  color: white;
+  border-radius: 15px;
+  width: 300px;
+  color: #fff;
   position: relative;
-  min-width: 300px;
 }
-.close {
-  position: absolute;
-  top: 10px; right: 10px;
+
+.popup-form input,
+.popup-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+.popup-form button {
+  background: orange;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 20px;
 }
-.opinia-section, .opinie {
-  padding: 20px;
+
+.popup-form .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #fff;
 }
-.opinia {
+
+.opinia-section,
+.opinie {
+  max-width: 600px;
+  margin: 30px auto;
   background: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.opinia {
+  background: rgba(0, 0, 0, 0.8);
+  border-left: 5px solid orange;
   padding: 15px;
-  border-left: 4px solid orange;
-  margin-bottom: 10px;
+  margin-top: 10px;
   border-radius: 10px;
 }
