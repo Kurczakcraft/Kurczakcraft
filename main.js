@@ -17,13 +17,31 @@ const db = getFirestore(app);
 
 // obsługa zamówień
 window.handleZamow = async () => {
-  const nick = document.getElementById("nick").value;
-  const email = document.getElementById("email").value;
-  const metoda = document.getElementById("metoda").value;
+  const nickInput = document.getElementById("nick");
+  const emailInput = document.getElementById("email");
+  const metodaInput = document.getElementById("metoda");
+
+  const nick = nickInput.value.trim();
+  const email = emailInput.value.trim();
+  const metoda = metodaInput.value;
   const ranga = document.getElementById("formRanga").textContent;
 
-  if (!nick || !email || !metoda || !ranga) {
-    alert("Uzupełnij wszystkie pola!");
+  // Proste sprawdzenie e-maila
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!nick) {
+    alert("Podaj swój nick Minecraft.");
+    nickInput.focus();
+    return;
+  }
+  if (!email || !emailRegex.test(email)) {
+    alert("Podaj poprawny adres e-mail.");
+    emailInput.focus();
+    return;
+  }
+  if (!metoda || metoda === "Wybierz metodę płatności") {
+    alert("Wybierz metodę płatności.");
+    metodaInput.focus();
     return;
   }
 
@@ -38,6 +56,11 @@ window.handleZamow = async () => {
 
     alert("Płatność zainicjowana – system płatności będzie zintegrowany.");
     closeForm();
+
+    // Reset formularza
+    nickInput.value = "";
+    emailInput.value = "";
+    metodaInput.selectedIndex = 0;
   } catch (e) {
     console.error("Błąd przy zapisie zamówienia:", e);
     alert("Wystąpił błąd podczas składania zamówienia.");
