@@ -3,7 +3,8 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -20,12 +21,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.openForm = (ranga) => {
-  document.getElementById("formPopup").style.display = "flex";
+  document.getElementById("formPopup").classList.add("active");
   document.getElementById("formRanga").textContent = ranga;
 };
 
 window.closeForm = () => {
-  document.getElementById("formPopup").style.display = "none";
+  document.getElementById("formPopup").classList.remove("active");
+};
+
+window.toggleOpiniePopup = () => {
+  document.getElementById("opiniePopup").classList.toggle("active");
 };
 
 window.handleZamow = async () => {
@@ -36,7 +41,7 @@ window.handleZamow = async () => {
 
   if (nick && email && metoda && ranga) {
     await addDoc(collection(db, "zamowienia"), {
-      nick, email, metoda, ranga
+      nick, email, metoda, ranga, created: serverTimestamp()
     });
     alert("Zamówienie złożone!");
     closeForm();
@@ -51,11 +56,12 @@ window.handleOpinie = async () => {
 
   if (nick && tekst) {
     await addDoc(collection(db, "opinie"), {
-      nick, tekst
+      nick, tekst, created: serverTimestamp()
     });
-    loadOpinie();
+    toggleOpiniePopup();
     document.getElementById("opNick").value = "";
     document.getElementById("opTekst").value = "";
+    loadOpinie();
   } else {
     alert("Uzupełnij wszystkie pola!");
   }
@@ -67,12 +73,17 @@ async function loadOpinie() {
   const container = document.getElementById("opinieList");
   container.innerHTML = "";
   opinieSnap.forEach(doc => {
-    const data = doc.data();
+    const { nick, tekst } = doc.data();
+    const litera = nick[0].toUpperCase();
     container.innerHTML += `
       <div class="opinia">
-        <strong>${data.nick}</strong><br>
-        ${data.tekst}
-      </div>`;
+        <div class="opinia-avatar">${litera}</div>
+        <div class="opinia-text">
+          <strong>${nick}</strong><br>
+          ${tekst}
+        </div>
+      </div>
+    `;
   });
 }
 
