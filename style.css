@@ -1,62 +1,41 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: url('https://i.imgur.com/ATywzml.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-}
+/* Reszta jak wcześniej... */
 
-header {
-  text-align: center;
-  padding: 40px;
-  background: rgba(0,0,0,0.7);
-}
-
-.orange { color: orange; }
-.white { color: white; }
-
-.rangi-box {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-.ranga {
-  background: rgba(0, 0, 0, 0.6);
+.opinie-section {
+  padding: 30px;
+  background: rgba(0,0,0,0.6);
+  margin: 30px;
   border-radius: 15px;
-  padding: 20px;
   text-align: center;
-  width: 200px;
-  transition: 0.3s;
-  cursor: pointer;
 }
 
-.ranga:hover {
-  transform: scale(1.05);
-  background: rgba(255, 165, 0, 0.2);
+.opinia {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 15px auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
 }
 
-.ranga img {
-  width: 100px;
-  height: auto;
-}
-
-.cena {
-  display: block;
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
+.opinia-avatar {
+  width: 50px;
+  height: 50px;
   background: orange;
-  color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
+  color: black;
+  font-size: 1.2em;
+}
+
+.opinia-text {
+  flex: 1;
 }
 
 .popup-form {
@@ -66,6 +45,11 @@ button {
   background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
+  z-index: 999;
+}
+
+.popup-form.active {
+  display: flex;
 }
 
 .form-content {
@@ -74,32 +58,13 @@ button {
   border-radius: 15px;
   width: 300px;
   color: white;
+  position: relative;
 }
 
 .close {
-  float: right;
+  position: absolute;
+  right: 15px;
+  top: 10px;
   font-size: 24px;
   cursor: pointer;
-}
-
-input, select, textarea {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-.opinia-section, .opinie {
-  padding: 30px;
-  background: rgba(0,0,0,0.6);
-  margin: 30px;
-  border-radius: 15px;
-}
-
-.opinia {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 10px 0;
-  padding: 15px;
-  border-radius: 10px;
 }
