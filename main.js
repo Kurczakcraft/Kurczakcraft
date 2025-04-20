@@ -1,3 +1,4 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
@@ -14,40 +15,51 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.handleOpinie = async () => {
-  const nick = document.getElementById("opNick").value;
-  const tekst = document.getElementById("opTekst").value;
-  if (nick && tekst) {
-    await addDoc(collection(db, "opinie"), { nick, tekst });
-    loadOpinie();
-    document.getElementById("opNick").value = "";
-    document.getElementById("opTekst").value = "";
-  }
-};
-
-window.loadOpinie = async () => {
-  const opinieList = document.getElementById("opinieList");
-  opinieList.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "opinie"));
-  querySnapshot.forEach((doc) => {
-    const div = document.createElement("div");
-    div.className = "opinia";
-    div.innerHTML = `<strong>${doc.data().nick}</strong>: ${doc.data().tekst}`;
-    opinieList.appendChild(div);
-  });
-};
-
 window.openForm = (ranga) => {
-  document.getElementById("formRanga").innerText = ranga;
-  document.getElementById("formPopup").style.display = "flex";
+  document.getElementById("formPopup").classList.add("active");
+  document.getElementById("formRanga").textContent = ranga;
 };
 
 window.closeForm = () => {
-  document.getElementById("formPopup").style.display = "none";
+  document.getElementById("formPopup").classList.remove("active");
 };
 
-window.handleZamow = () => {
-  alert("Płatność jeszcze nie została podłączona.");
+window.handleZamow = async () => {
+  const nick = document.getElementById("nick").value;
+  const email = document.getElementById("email").value;
+  const metoda = document.getElementById("metoda").value;
+  const ranga = document.getElementById("formRanga").textContent;
+
+  if (!nick || !email || !metoda) return alert("Wypełnij wszystkie pola!");
+
+  await addDoc(collection(db, "zamowienia"), {
+    nick, email, metoda, ranga, data: new Date().toISOString()
+  });
+  alert("Zamówienie zapisane!");
+  closeForm();
 };
+
+window.handleOpinie = async () => {
+  const nick = document.getElementById("opNick").value;
+  const tekst = document.getElementById("opTekst").value;
+  if (!nick || !tekst) return alert("Wypełnij oba pola!");
+  await addDoc(collection(db, "opinie"), { nick, tekst, data: new Date().toISOString() });
+  document.getElementById("opNick").value = "";
+  document.getElementById("opTekst").value = "";
+  loadOpinie();
+};
+
+async function loadOpinie() {
+  const list = document.getElementById("opinieList");
+  list.innerHTML = "";
+  const querySnapshot = await getDocs(collection(db, "opinie"));
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const div = document.createElement("div");
+    div.className = "opinia";
+    div.innerHTML = `<strong>${data.nick}</strong><br>${data.tekst}`;
+    list.appendChild(div);
+  });
+}
 
 loadOpinie();

@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -10,45 +11,73 @@ header {
   padding: 40px 0;
   background: rgba(0,0,0,0.7);
 }
-h1 .orange { color: orange; }
-h1 .white { color: white; }
-
+.orange { color: orange; }
+.white { color: white; }
 .rangi-box {
   display: flex;
   justify-content: space-around;
-  margin: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
 }
 .ranga {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   padding: 20px;
   border-radius: 10px;
-  width: 30%;
+  width: 250px;
   text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 0 0 10px orange;
 }
-.ranga:hover {
-  transform: scale(1.05);
+.ranga img {
+  width: 100px;
+}
+.cena {
+  font-size: 18px;
+  color: gold;
+  font-weight: bold;
+}
+button {
+  background: orange;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
 }
 .popup-form {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
 }
-.popup-form .form-content {
-  background: #fff;
-  color: #000;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 90%;
+.popup-form.active {
+  display: flex;
 }
-footer {
-  text-align: center;
+.form-content {
+  background: #222;
   padding: 30px;
-  color: #ccc;
+  border-radius: 10px;
+  color: white;
+  position: relative;
+  min-width: 300px;
+}
+.close {
+  position: absolute;
+  top: 10px; right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.opinia-section, .opinie {
+  padding: 20px;
+}
+.opinia {
+  background: rgba(0,0,0,0.6);
+  padding: 15px;
+  border-left: 4px solid orange;
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
