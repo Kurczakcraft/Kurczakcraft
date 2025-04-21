@@ -84,55 +84,66 @@ header {
   color: #fff;
 }
 
-.opinia-section {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 15px;
-  margin: 30px auto;
+.opinie-container {
   max-width: 800px;
-  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  color: #f0f0f0;
 }
 
-.opinia-section input,
-.opinia-section textarea {
+.opinia-form {
+  background: #1a1a1a;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.2);
+}
+
+.opinia-form h2 {
+  margin-bottom: 15px;
+}
+
+.opinia-form input,
+.opinia-form textarea {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 12px;
+  margin-bottom: 15px;
   border-radius: 10px;
   border: none;
+  background: #2a2a2a;
+  color: #fff;
   font-size: 1em;
 }
 
-.opinia-section button {
+.opinia-form button {
   background-color: orange;
-  border: none;
-  padding: 12px 20px;
-  font-weight: bold;
   color: #000;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.opinia-section button:hover {
+.opinia-form button:hover {
   background-color: darkorange;
 }
 
-.opinie-box {
-  max-width: 800px;
-  margin: 30px auto;
+.opinie-list h2 {
+  margin-bottom: 10px;
 }
 
 .opinia {
-  background: rgba(20, 20, 20, 0.8);
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-left: 5px solid orange;
+  background: #1f1f1f;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-left: 4px solid orange;
   border-radius: 10px;
-  color: #f0f0f0;
 }
 
 .opinia .nick {
   font-weight: bold;
   color: orange;
+  margin-bottom: 5px;
 }
