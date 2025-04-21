@@ -54,3 +54,33 @@ export async function loadOpinie() {
 
 // Od razu po załadowaniu strony
 window.addEventListener("DOMContentLoaded", loadOpinie);
+
+function handleOpinie() {
+  const nick = document.getElementById("opNick").value;
+  const tekst = document.getElementById("opTekst").value;
+
+  if (nick && tekst) {
+    const opinieList = document.getElementById("opinieList");
+
+    const box = document.createElement("div");
+    box.className = "opinia-box";
+
+    const nickElem = document.createElement("div");
+    nickElem.className = "opinia-nick";
+    nickElem.innerText = nick;
+
+    const tekstElem = document.createElement("div");
+    tekstElem.className = "opinia-tekst";
+    tekstElem.innerText = tekst;
+
+    box.appendChild(nickElem);
+    box.appendChild(tekstElem);
+
+    opinieList.prepend(box);
+
+    // Reset formularza
+    document.getElementById("opNick").value = "";
+    document.getElementById("opTekst").value = "";
+  }
+}
+
