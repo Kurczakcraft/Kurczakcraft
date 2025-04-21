@@ -53,18 +53,16 @@
     </div>
   </section>
 
-  <!-- Nowoczesne pole opinii -->
-<section class="opinie-section">
-  <div class="opinie-box">
-    <h2>Dodaj opinię</h2>
-    <input type="text" id="nickInput" placeholder="Twój nick" />
-    <textarea id="opiniaInput" placeholder="Twoja opinia..."></textarea>
-    <button onclick="dodajOpinie()">Dodaj opinię</button>
-  </div>
+ <section class="opinia-section">
+  <h2>Dodaj opinię</h2>
+  <input id="opNick" placeholder="Twój nick">
+  <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
+  <button onclick="handleOpinie()">Dodaj opinię</button>
+</section>
 
-  <!-- Wyświetlane opinie -->
-  <h2 style="text-align: center; margin-top: 30px;">Opinie graczy</h2>
-  <div class="opinie-list" id="opinieList"></div>
+<section class="opinie-box">
+  <h2>Opinie graczy</h2>
+  <div id="opinieList"></div>
 </section>
 
   <footer>
