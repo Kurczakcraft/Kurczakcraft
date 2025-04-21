@@ -53,17 +53,20 @@
     </div>
   </section>
 
- <section class="opinia-section">
-  <h2>Dodaj opinię</h2>
-  <input id="opNick" placeholder="Twój nick">
-  <textarea id="opTekst" placeholder="Twoja opinia..."></textarea>
-  <button onclick="handleOpinie()">Dodaj opinię</button>
+ <section class="opinie-container">
+  <div class="opinia-form">
+    <h2>Dodaj opinię</h2>
+    <input type="text" id="opNick" placeholder="Twój nick">
+    <textarea id="opTekst" placeholder="Napisz swoją opinię..."></textarea>
+    <button onclick="handleOpinie()">Wyślij opinię</button>
+  </div>
+
+  <div class="opinie-list">
+    <h2>Opinie graczy</h2>
+    <div id="opinieList"></div>
+  </div>
 </section>
 
-<section class="opinie-box">
-  <h2>Opinie graczy</h2>
-  <div id="opinieList"></div>
-</section>
 
   <footer>
     KurczakCraft © 2025 – Wszelkie prawa zastrzeżone.
