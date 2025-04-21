@@ -1,14 +1,5 @@
-// Firebase config
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  serverTimestamp,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjkWkuC43qRrYrYimohrWSF5r-ZR2-EhQ",
@@ -23,89 +14,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Obsługa popupów
-let selectedRanga = "";
-
-window.openForm = function (ranga) {
-  selectedRanga = ranga;
-  document.getElementById("formRanga").innerText = ranga;
-  document.getElementById("formPopup").style.display = "flex";
-};
-
-window.closeForm = function () {
-  document.getElementById("formPopup").style.display = "none";
-};
-
-// Obsługa zamówień
-window.handleZamow = async function () {
-  const nick = document.getElementById("nick").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const metoda = document.getElementById("metoda").value;
-
-  if (!nick || !email || !metoda || !selectedRanga) {
-    alert("Uzupełnij wszystkie pola!");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "zamowienia"), {
-      nick,
-      email,
-      metoda,
-      ranga: selectedRanga,
-      timestamp: serverTimestamp()
-    });
-
-    alert("Płatność zainicjowana – system płatności będzie zintegrowany.");
-    closeForm();
-  } catch (error) {
-    console.error("Błąd przy zamówieniu:", error);
-    alert("Wystąpił błąd. Spróbuj ponownie.");
-  }
-};
-
-// Dodawanie opinii
-window.handleOpinie = async function () {
+// Dodanie opinii
+export async function handleOpinie() {
   const nick = document.getElementById("opNick").value.trim();
   const tekst = document.getElementById("opTekst").value.trim();
 
   if (!nick || !tekst) {
-    alert("Uzupełnij wszystkie pola!");
+    alert("Uzupełnij nick i treść opinii!");
     return;
   }
 
-  try {
-    await addDoc(collection(db, "opinie"), {
-      nick,
-      tekst,
-      timestamp: serverTimestamp()
-    });
+  await addDoc(collection(db, "opinie"), {
+    nick,
+    tekst,
+    createdAt: serverTimestamp()
+  });
 
-    document.getElementById("opNick").value = "";
-    document.getElementById("opTekst").value = "";
-    loadOpinie(); // przeładuj opinie
-  } catch (error) {
-    console.error("Błąd przy dodawaniu opinii:", error);
-    alert("Wystąpił błąd. Spróbuj ponownie.");
-  }
-};
+  document.getElementById("opNick").value = "";
+  document.getElementById("opTekst").value = "";
 
-// Wczytywanie opinii
-async function loadOpinie() {
-  const opinieList = document.getElementById("opinieList");
-  opinieList.innerHTML = "";
+  loadOpinie(); // odświeżenie listy opinii
+}
 
-  const q = query(collection(db, "opinie"), orderBy("timestamp", "desc"));
-  const snapshot = await getDocs(q);
+// Załaduj opinie
+export async function loadOpinie() {
+  const opinieDiv = document.getElementById("opinieList");
+  opinieDiv.innerHTML = "";
 
-  snapshot.forEach((doc) => {
+  const q = query(collection(db, "opinie"), orderBy("createdAt", "desc"));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach(doc => {
     const data = doc.data();
-    const div = document.createElement("div");
-    div.className = "opinia-box";
-    div.innerHTML = `<strong>${data.nick}</strong><p>${data.tekst}</p>`;
-    opinieList.appendChild(div);
+    const opiniaEl = document.createElement("div");
+    opiniaEl.className = "opinia-box";
+    opiniaEl.innerHTML = `<strong>${data.nick}</strong><br>${data.tekst}`;
+    opinieDiv.appendChild(opiniaEl);
   });
 }
 
-// Załaduj opinie przy starcie
-loadOpinie();
+// Od razu po załadowaniu strony
+window.addEventListener("DOMContentLoaded", loadOpinie);
